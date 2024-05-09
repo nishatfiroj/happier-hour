@@ -7,7 +7,7 @@ const barRoute = require("./routes/bar.route")
 const getConnectionString = (username, password) =>
   `mongodb+srv://${encodeURIComponent(username)}:${encodeURIComponent(
     password
-  )}@happier-hour-db-0.ixnmich.mongodb.net/bars-0?retryWrites=true&w=majority&appName=happier-hour-db-0`
+  )}@happier-hour-db-0.ixnmich.mongodb.net/bars?retryWrites=true&w=majority&appName=happier-hour-db-0`
 const connectionString = getConnectionString(
   process.env.MONGO_DB_USERNAME,
   process.env.MONGO_DB_PASSWORD
