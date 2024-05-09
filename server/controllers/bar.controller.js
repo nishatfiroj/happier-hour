@@ -1,7 +1,6 @@
 const Bar = require("../models/bar.model")
 
 const getBars = async (req, res) => {
-  console.log("getBars")
   try {
     const bars = await Bar.find({})
     res.status(200).json(bars)
@@ -11,7 +10,6 @@ const getBars = async (req, res) => {
 }
 
 const getBar = async (req, res) => {
-  console.log(2)
   try {
     const { id } = req.params
     const bar = await Bar.findById(id)
@@ -22,7 +20,6 @@ const getBar = async (req, res) => {
 }
 
 const addBar = async (req, res) => {
-  console.log(5)
   try {
     const bar = await Bar.create(req.body)
     res.status(200).json(bar)
@@ -32,12 +29,10 @@ const addBar = async (req, res) => {
 }
 
 const updateBar = async (req, res) => {
-  console.log(6)
   try {
     const { id } = req.params
 
     const bar = await Bar.findByIdAndUpdate(id, req.body)
-    console.log(bar)
     if (!bar) return res.status(404).json({ message: "Bar not found" })
 
     const updatedBar = await Bar.findById(id)
@@ -63,14 +58,11 @@ const deleteBar = async (req, res) => {
 }
 
 const getBarByLocation = async (req, res) => {
-  console.log("getBarByLocation")
-
   try {
     const bar = await Bar.findOne({
       latitude: req.body.latitude,
       longitude: req.body.longitude,
     })
-    console.log("hello")
     res.status(200).json(bar)
   } catch (e) {
     res.status(500).json({ message: e.message })
@@ -78,7 +70,6 @@ const getBarByLocation = async (req, res) => {
 }
 
 const getBarsInRange = async (req, res) => {
-  console.log("getBarsInRange")
   try {
     const bars = await Bar.find({
       latitude: {
