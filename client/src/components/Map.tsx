@@ -14,15 +14,17 @@ const styles = StyleSheet.create({
   },
 })
 
-export function Map() {
+type MapProps = { latitude: number; longitude: number }
+
+export function Map({ latitude, longitude }: MapProps) {
   return (
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: latitude,
+          longitude: longitude,
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}
