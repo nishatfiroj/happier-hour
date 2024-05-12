@@ -1,1 +1,1 @@
-export * from "./getAllBars"
+export * from "./useAllBars"

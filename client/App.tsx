@@ -31,7 +31,7 @@ export default function App() {
             return (
               <ListItem
                 key={bar._id}
-                barName={bar.barName}
+                bar={bar}
                 onPress={() => setSelectedBar(bar)}
               />
             )
