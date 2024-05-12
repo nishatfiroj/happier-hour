@@ -1,42 +1,43 @@
 import React from "react"
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native"
+import { StyleSheet, View, ScrollView } from "react-native"
 import { useAllBars } from "./services/endpoints"
-import { Map } from "./src/components"
+import { Map, Drawer, ListItem } from "./src/components"
 import { BarMetadata } from "./src/types"
 
 export default function App() {
-  const response = useAllBars()
-
   const [selectedBar, setSelectedBar] = React.useState<BarMetadata>({
-    name: "bar name",
+    _id: "663d200b02443418ed33b9a8",
+    yelpId: "ePqKbqXFBCbwBaWiN2Jo9w",
+    barName: "Ampersand",
+    address: "294 3rd Ave, New York, NY 10010",
+    googleMapsLink: "https://maps.app.goo.gl/ZyVGQxdk6o7suAuP7",
+    happyHourDays: "N/A",
+    happyHourHours: "N/A",
+    indoor: "x",
+    outdoor: "x",
+    happyHourMenu: "N/A",
     latitude: 40.7386178790617,
     longitude: -73.9834206895483,
   })
 
-  console.log(selectedBar)
+  const response = useAllBars()
 
   return (
     <View style={styles.container}>
       <Map latitude={selectedBar.latitude} longitude={selectedBar.longitude} />
-      <ScrollView style={styles.scrollableList}>
-        {response.map((value: any, index: number) => {
-          return (
-            <Button
-              key={index}
-              onPress={() =>
-                setSelectedBar({
-                  name: value.barName,
-                  latitude: value.latitude,
-                  longitude: value.longitude,
-                })
-              }
-              title={value.barName}
-              color="#d18fd1"
-              accessibilityLabel="button"
-            ></Button>
-          )
-        })}
-      </ScrollView>
+      <Drawer>
+        <ScrollView>
+          {response.map((bar: BarMetadata) => {
+            return (
+              <ListItem
+                key={bar._id}
+                barName={bar.barName}
+                onPress={() => setSelectedBar(bar)}
+              />
+            )
+          })}
+        </ScrollView>
+      </Drawer>
     </View>
   )
 }
@@ -47,8 +48,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  scrollableList: {
-    paddingTop: 400,
   },
 })
