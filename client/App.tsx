@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Map latitude={selectedBar.latitude} longitude={selectedBar.longitude} />
+      <Map selectedBar={selectedBar} bars={response} />
       <Drawer>
         <ScrollView>
           {response.map((bar: BarMetadata) => {

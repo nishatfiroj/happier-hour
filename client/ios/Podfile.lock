@@ -893,11 +893,11 @@ PODS:
   - React-Mapbuffer (0.73.6):
     - glog
     - React-debug
-  - react-native-google-maps (1.15.1):
+  - react-native-google-maps (1.10.0):
     - Google-Maps-iOS-Utils (= 4.2.2)
     - GoogleMaps (= 7.4.0)
     - React-Core
-  - react-native-maps (1.15.1):
+  - react-native-maps (1.10.0):
     - React-Core
   - React-nativeconfig (0.73.6)
   - React-NativeModulesApple (0.73.6):
@@ -1279,8 +1279,8 @@ SPEC CHECKSUMS:
   React-jsinspector: 85583ef014ce53d731a98c66a0e24496f7a83066
   React-logger: 3eb80a977f0d9669468ef641a5e1fabbc50a09ec
   React-Mapbuffer: 84ea43c6c6232049135b1550b8c60b2faac19fab
-  react-native-google-maps: 7aae26cd61058ca41f54ed4abb127dbe20ad9184
-  react-native-maps: 4c07b21deac3ac3579558956b63e288efb8725bb
+  react-native-google-maps: 8007277310c0d0f7266f7987e511fb3f5505f3f2
+  react-native-maps: b4c3b092b1c71240d8d4792bae3738828942f14a
   React-nativeconfig: b4d4e9901d4cabb57be63053fd2aa6086eb3c85f
   React-NativeModulesApple: ae99dc0e80c9027f54572c45635449fbdc36e4f1
   React-perflogger: 5f49905de275bac07ac7ea7f575a70611fa988f2
