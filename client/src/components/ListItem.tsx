@@ -3,17 +3,15 @@ import { View, Button, Text, StyleSheet, Image } from "react-native"
 import { BarMetadata } from "../types"
 
 type ListItemProps = {
-  key: string
   bar: BarMetadata
   onPress: () => void
 }
-export function ListItem({ key, bar, onPress }: ListItemProps) {
+export function ListItem({ bar, onPress }: ListItemProps) {
   // some of the fields in the database just have 'n/a' filled in - let's filter those out
   const fieldExists = (field: string) => (field === "N/A" ? null : field)
   return (
     <View>
       <Button
-        key={key}
         onPress={onPress}
         title={bar.barName}
         accessibilityLabel={bar.barName}

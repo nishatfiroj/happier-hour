@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, View, ScrollView } from "react-native"
+import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native"
 import { useAllBars } from "./services/endpoints"
 import { Map, Drawer, ListItem } from "./src/components"
 import { BarMetadata } from "./src/types"
@@ -23,22 +23,20 @@ export default function App() {
   const response = useAllBars()
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Map selectedBar={selectedBar} bars={response} />
       <Drawer>
         <ScrollView>
           {response.map((bar: BarMetadata) => {
             return (
-              <ListItem
-                key={bar._id}
-                bar={bar}
-                onPress={() => setSelectedBar(bar)}
-              />
+              <View key={bar._id}>
+                <ListItem bar={bar} onPress={() => setSelectedBar(bar)} />
+              </View>
             )
           })}
         </ScrollView>
       </Drawer>
-    </View>
+    </SafeAreaView>
   )
 }
 
