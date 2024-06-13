@@ -3,28 +3,57 @@ import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native"
 import { useAllBars } from "./services/endpoints"
 import { Map, Drawer, ListItem } from "./src/components"
 import { BarMetadata } from "./src/types"
+import Geolocation, {
+  GeolocationResponse,
+} from "@react-native-community/geolocation"
+
+const placeholderBar = {
+  _id: "663d200b02443418ed33b9a8",
+  yelpId: "ePqKbqXFBCbwBaWiN2Jo9w",
+  barName: "Ampersand",
+  address: "294 3rd Ave, New York, NY 10010",
+  googleMapsLink: "https://maps.app.goo.gl/ZyVGQxdk6o7suAuP7",
+  happyHourDays: "N/A",
+  happyHourHours: "N/A",
+  indoor: "x",
+  outdoor: "x",
+  happyHourMenu: "N/A",
+  latitude: 40.7386178790617,
+  longitude: -73.9834206895483,
+}
 
 export default function App() {
-  const [selectedBar, setSelectedBar] = React.useState<BarMetadata>({
-    _id: "663d200b02443418ed33b9a8",
-    yelpId: "ePqKbqXFBCbwBaWiN2Jo9w",
-    barName: "Ampersand",
-    address: "294 3rd Ave, New York, NY 10010",
-    googleMapsLink: "https://maps.app.goo.gl/ZyVGQxdk6o7suAuP7",
-    happyHourDays: "N/A",
-    happyHourHours: "N/A",
-    indoor: "x",
-    outdoor: "x",
-    happyHourMenu: "N/A",
-    latitude: 40.7386178790617,
-    longitude: -73.9834206895483,
-  })
+  const [selectedBar, setSelectedBar] = React.useState<BarMetadata | undefined>(
+    placeholderBar
+  )
+
+  const [currentLocation, setCurrentLocation] = React.useState<{
+    latitude: number
+    longitude: number
+  }>({ latitude: 0, longitude: 0 })
+
+  React.useEffect(() => {
+    const getCurrentLocation = () => {
+      Geolocation.getCurrentPosition((location) => {
+        setCurrentLocation({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        })
+      })
+    }
+
+    getCurrentLocation()
+  }, [])
 
   const response = useAllBars()
 
   return (
     <SafeAreaView style={styles.container}>
-      <Map selectedBar={selectedBar} bars={response} />
+      <Map
+        currentLocation={currentLocation}
+        selectedBar={selectedBar}
+        bars={response}
+      />
       <Drawer>
         <ScrollView>
           {response.map((bar: BarMetadata) => {

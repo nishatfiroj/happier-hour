@@ -2,6 +2,7 @@ import { View, StyleSheet } from "react-native"
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps" // remove PROVIDER_GOOGLE import if not using Google Maps
 import { BarMetadata } from "../../types"
 import { mapStyles } from "./mapStyles"
+import { GeolocationResponse } from "@react-native-community/geolocation"
 
 const styles = StyleSheet.create({
   container: {
@@ -16,18 +17,23 @@ const styles = StyleSheet.create({
   },
 })
 
-type MapProps = { selectedBar: BarMetadata; bars: BarMetadata[] }
+type MapProps = {
+  selectedBar: BarMetadata | undefined
+  bars: BarMetadata[]
+  currentLocation: { latitude: number; longitude: number }
+}
 
-export function Map({ selectedBar, bars }: MapProps) {
+export function Map({ selectedBar, bars, currentLocation }: MapProps) {
   const isSelected = (id: string) => id === selectedBar._id
+
   return (
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={{
-          latitude: selectedBar.latitude,
-          longitude: selectedBar.longitude,
+          latitude: selectedBar.latitude || currentLocation.latitude,
+          longitude: selectedBar.longitude || currentLocation.longitude,
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}

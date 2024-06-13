@@ -43,7 +43,9 @@
       <true/>
     </dict>
     <key>NSLocationWhenInUseUsageDescription</key>
-	  <string></string>
+	  <string>Allow to get user location</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	  <string>Allow to get user location in background</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
