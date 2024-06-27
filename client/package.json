@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@react-native-community/geolocation": "^3.2.1",
+    "@tamagui/config": "^1.100.5",
+    "@tamagui/core": "^1.100.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.11",
     "@types/react": "~18.2.45",

@@ -3,9 +3,9 @@ import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native"
 import { useAllBars } from "./services/endpoints"
 import { Map, Drawer, ListItem } from "./src/components"
 import { BarMetadata } from "./src/types"
-import Geolocation, {
-  GeolocationResponse,
-} from "@react-native-community/geolocation"
+import Geolocation from "@react-native-community/geolocation"
+import { createTamagui, TamaguiProvider } from "@tamagui/core"
+import { config as configBase } from "@tamagui/config"
 
 const placeholderBar = {
   _id: "663d200b02443418ed33b9a8",
@@ -21,6 +21,8 @@ const placeholderBar = {
   latitude: 40.7386178790617,
   longitude: -73.9834206895483,
 }
+
+const tamaguiConfig = createTamagui({ ...configBase })
 
 export default function App() {
   const [selectedBar, setSelectedBar] = React.useState<BarMetadata | undefined>(
@@ -48,24 +50,26 @@ export default function App() {
   const response = useAllBars()
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Map
-        currentLocation={currentLocation}
-        selectedBar={selectedBar}
-        bars={response}
-      />
-      <Drawer>
-        <ScrollView>
-          {response.map((bar: BarMetadata) => {
-            return (
-              <View key={bar._id}>
-                <ListItem bar={bar} onPress={() => setSelectedBar(bar)} />
-              </View>
-            )
-          })}
-        </ScrollView>
-      </Drawer>
-    </SafeAreaView>
+    <TamaguiProvider config={tamaguiConfig}>
+      <SafeAreaView style={styles.container}>
+        <Map
+          currentLocation={currentLocation}
+          selectedBar={selectedBar}
+          bars={response}
+        />
+        <Drawer>
+          <ScrollView>
+            {response.map((bar: BarMetadata) => {
+              return (
+                <View key={bar._id}>
+                  <ListItem bar={bar} onPress={() => setSelectedBar(bar)} />
+                </View>
+              )
+            })}
+          </ScrollView>
+        </Drawer>
+      </SafeAreaView>
+    </TamaguiProvider>
   )
 }
 
