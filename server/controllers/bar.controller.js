@@ -88,6 +88,48 @@ const getBarsInRange = async (req, res) => {
   }
 }
 
+const getBarsByDay = async (req, res) => {
+  try {
+    console.log(req)
+    const days = req.body.regions.split(",")
+    const mon = days.includes("mon")
+      ? await Bar.find({ monday: { $ne: null } })
+      : []
+    const tue = days.includes("tue")
+      ? await Bar.find({ tuesday: { $ne: null } })
+      : []
+    const wed = days.includes("wed")
+      ? await Bar.find({ wednesday: { $ne: null } })
+      : []
+    const thu = days.includes("thu")
+      ? await Bar.find({ thursday: { $ne: null } })
+      : []
+    const fri = days.includes("fri")
+      ? await Bar.find({ friday: { $ne: null } })
+      : []
+    const sat = days.includes("sat")
+      ? await Bar.find({ saturday: { $ne: null } })
+      : []
+    const sun = days.includes("sun")
+      ? await Bar.find({ sunday: { $ne: null } })
+      : []
+
+    const aggregatedBars = [
+      ...mon,
+      ...tue,
+      ...wed,
+      ...thu,
+      ...fri,
+      ...sat,
+      ...sun,
+    ]
+
+    res.status(200).json(aggregatedBars)
+  } catch (e) {
+    res.status(500).json({ message: e.message })
+  }
+}
+
 module.exports = {
   getBars,
   getBar,
@@ -96,4 +138,5 @@ module.exports = {
   deleteBar,
   getBarByLocation,
   getBarsInRange,
+  getBarsByDay,
 }

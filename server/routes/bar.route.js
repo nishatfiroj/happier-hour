@@ -8,10 +8,12 @@ const {
   deleteBar,
   getBarByLocation,
   getBarsInRange,
+  getBarsByDay,
 } = require("../controllers/bar.controller")
 
 router.get("/", getBars)
 router.get("/range", getBarsInRange)
+router.get("/day", getBarsByDay)
 router.get("/loc", getBarByLocation)
 router.get("/:id", getBar)
 router.post("/", addBar)
