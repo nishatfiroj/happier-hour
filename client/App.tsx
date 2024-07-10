@@ -4,12 +4,23 @@ import { Map, Drawer, ListItem } from "./src/components"
 import { BarMetadata } from "./src/types"
 import { createTamagui, TamaguiProvider } from "@tamagui/core"
 import { config as configBase } from "@tamagui/config"
-import { useCurrentLocation, useAllBars, useSelectedBar } from "./src/hooks"
+import { useCurrentLocation, useSelectedBar } from "./src/hooks"
+import { useAllBars, useBarsByDay } from "./src/api"
 
 const tamaguiConfig = createTamagui({ ...configBase })
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+})
+
 export default function App() {
-  const response = useAllBars()
+  const allBars = useAllBars()
+  const barsByDay = useBarsByDay("mon-tue")
   const { selectedBar, setSelectedBar } = useSelectedBar()
   const { currentLocation } = useCurrentLocation()
 
@@ -19,11 +30,11 @@ export default function App() {
         <Map
           currentLocation={currentLocation}
           selectedBar={selectedBar}
-          bars={response}
+          bars={allBars}
         />
         <Drawer>
           <ScrollView>
-            {response.map((bar: BarMetadata) => {
+            {allBars.map((bar: BarMetadata) => {
               return (
                 <View key={bar._id}>
                   <ListItem bar={bar} onPress={() => setSelectedBar(bar)} />
@@ -36,12 +47,3 @@ export default function App() {
     </TamaguiProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-})

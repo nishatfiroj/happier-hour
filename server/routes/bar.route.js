@@ -13,7 +13,7 @@ const {
 
 router.get("/", getBars)
 router.get("/range", getBarsInRange)
-router.get("/day", getBarsByDay)
+router.get("/days/:days", getBarsByDay)
 router.get("/loc", getBarByLocation)
 router.get("/:id", getBar)
 router.post("/", addBar)

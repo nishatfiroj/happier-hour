@@ -90,8 +90,9 @@ const getBarsInRange = async (req, res) => {
 
 const getBarsByDay = async (req, res) => {
   try {
-    console.log(req)
-    const days = req.body.regions.split(",")
+    const { days: daysRaw } = req.params
+    const days = daysRaw.split("-")
+
     const mon = days.includes("mon")
       ? await Bar.find({ monday: { $ne: null } })
       : []
