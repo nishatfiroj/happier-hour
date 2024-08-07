@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet, Image, Button } from "react-native"
+import { View, StyleSheet, Image, Button, Pressable } from "react-native"
 import { Text, Stack } from "@tamagui/core"
 import { BarMetadata } from "../types"
 
@@ -12,33 +12,29 @@ export function ListItem({ bar, onPress }: ListItemProps) {
   const fieldExists = (field: string) => (field === "N/A" ? null : field)
 
   return (
-    <View>
-      <Stack justifyContent="flex-start">
-        <Stack justifyContent="flex-start" flexDirection="row">
-          <Button
-            onPress={onPress}
-            title={bar.barName}
-            accessibilityLabel={bar.barName}
-            color="#0054CD"
-          />
-        </Stack>
-        <Stack flexDirection="row" alignItems="flex-start">
-          <Stack>
+    <View style={{ paddingBottom: 16 }}>
+      <Pressable onPress={onPress}>
+        <Stack justifyContent="flex-start" style={{ paddingLeft: 24 }}>
+          <Text color="#0054CD" fontSize={24}>
+            {bar.barName}
+          </Text>
+
+          <Stack flexDirection="row" alignItems="flex-start">
             <Image source={require("../../assets/location-pin.png")} />
-          </Stack>
-          <Stack>
-            <Text>{bar.address}</Text>
-            <Text>{fieldExists(bar.happyHourDays)}</Text>
-            <Text>{fieldExists(bar.happyHourHours)}</Text>
+            <Stack style={{ paddingLeft: 4 }}>
+              <Text>{bar.address}</Text>
+              <Text>{fieldExists(bar.happyHourDays)}</Text>
+              <Text>{fieldExists(bar.happyHourHours)}</Text>
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
+      </Pressable>
       <View
         style={{
           borderBottomColor: "#595957",
           borderBottomWidth: StyleSheet.hairlineWidth,
           marginHorizontal: 24,
-          paddingVertical: 8,
+          paddingTop: 8,
         }}
       />
     </View>

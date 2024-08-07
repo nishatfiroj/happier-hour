@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const allBars = useAllBars()
-  const barsByDay = useBarsByDay("mon-tue")
   const { selectedBar, setSelectedBar } = useSelectedBar()
   const { currentLocation } = useCurrentLocation()
 
