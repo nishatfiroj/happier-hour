@@ -1,7 +1,21 @@
 import React from "react"
-import { View, StyleSheet, Image, Button, Pressable } from "react-native"
+import { View, StyleSheet, Image, Pressable } from "react-native"
 import { Text, Stack } from "@tamagui/core"
 import { BarMetadata } from "../types"
+
+const styles = StyleSheet.create({
+  header: {
+    color: "#0054CD",
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+    paddingBottom: 8,
+  },
+  body: {
+    color: "black",
+    fontWeight: "500",
+    fontFamily: "Montserrat",
+  },
+})
 
 type ListItemProps = {
   bar: BarMetadata
@@ -15,16 +29,16 @@ export function ListItem({ bar, onPress }: ListItemProps) {
     <View style={{ paddingBottom: 16 }}>
       <Pressable onPress={onPress}>
         <Stack justifyContent="flex-start" style={{ paddingLeft: 24 }}>
-          <Text color="#0054CD" fontSize={24}>
+          <Text style={styles.header} fontSize={24}>
             {bar.barName}
           </Text>
 
           <Stack flexDirection="row" alignItems="flex-start">
             <Image source={require("../../assets/location-pin.png")} />
             <Stack style={{ paddingLeft: 4 }}>
-              <Text>{bar.address}</Text>
-              <Text>{fieldExists(bar.happyHourDays)}</Text>
-              <Text>{fieldExists(bar.happyHourHours)}</Text>
+              <Text style={styles.body}>{bar.address}</Text>
+              <Text style={styles.body}>{fieldExists(bar.happyHourDays)}</Text>
+              <Text style={styles.body}>{fieldExists(bar.happyHourHours)}</Text>
             </Stack>
           </Stack>
         </Stack>
